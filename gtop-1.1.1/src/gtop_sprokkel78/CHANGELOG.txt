@@ -1,5 +1,0 @@
-# CHANGELOG
-
-
-# gtop-sprokkel78 1.1.1
-- proof of concept
