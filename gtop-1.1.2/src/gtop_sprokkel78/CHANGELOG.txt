@@ -1,0 +1,8 @@
+# CHANGELOG
+
+
+# stop-sprokkel78 1.1.2
+- fixed the import of the Gtk version before loading it.
+
+# gtop-sprokkel78 1.1.1
+- proof of concept

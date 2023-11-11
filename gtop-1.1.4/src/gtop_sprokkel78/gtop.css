@@ -1,0 +1,31 @@
+/* style.css */
+
+* * {
+    font: 14px monospace;
+}
+#textview {
+	font: 14px monospace;
+
+}
+
+#label {
+	font: 14px monospace;
+}
+
+#button {
+	font: 14px monospace;
+	color: white;
+	background-color: black;
+}
+
+#combobox {
+	font: 14px monospace;
+}
+
+#entry {
+	font: 14px monospace;
+}
+
+#statusbar {
+	font: 14px monospace;
+}

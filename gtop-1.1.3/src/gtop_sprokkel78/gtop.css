@@ -1,0 +1,26 @@
+/* style.css */
+
+#textview {
+	font: 16px monospace;
+
+}
+
+#label {
+	font: 16px monospace;
+}
+
+#button {
+	font: 16px monospace;
+}
+
+#combobox {
+	font: 16px monospace;
+}
+
+#entry {
+	font: 16px monospace;
+}
+
+#statusbar {
+	font: 14px monospace;
+}

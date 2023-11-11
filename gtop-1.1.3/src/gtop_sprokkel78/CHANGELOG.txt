@@ -1,0 +1,11 @@
+# CHANGELOG
+
+
+# gtop-sprokkel78 1.1.3
+- Changed user interface style to css instead of Pango.
+
+# gtop-sprokkel78 1.1.2
+- fixed the import of the Gtk version before loading it.
+
+# gtop-sprokkel78 1.1.1
+- proof of concept
