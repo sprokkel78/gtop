@@ -8,7 +8,7 @@
 # CHANGELOG
 
 # gtop-sprokkel78 1.1.7
--
+- .
 
 # gtop-sprokkel78 1.1.6
 - Added Total Network Usage in Gigabytes in the Traffic Menu.
