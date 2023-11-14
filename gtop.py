@@ -11,10 +11,12 @@ from gi.repository import Gtk, GLib, Gdk
 from threading import Thread
 from time import sleep
 
-# VERSION 1.1.6
-ver = "1.1.6"
 
-# GLOBALS
+# VERSION 1.1.7
+ver = "1.1.7"
+
+
+# GLOBAL VARIABLES
 pfilter = ""
 pid = ""
 pause = 0
@@ -24,16 +26,10 @@ connections = 0
 traffic_reset = 0
 buffer = ""
 present = 0
-tbuffer = Gtk.TextBuffer()
-tbuffer_users = Gtk.TextBuffer()
-tbuffer_netstat = Gtk.TextBuffer()
-tbuffer_lsof = Gtk.TextBuffer()
-tbuffer_net = Gtk.TextBuffer()
-tbuffer_nettop = Gtk.TextBuffer()
-tbuffer_traffic = Gtk.TextBuffer()
 traffic_buffer = ""
-entry1 = Gtk.Entry()
-entry2 = Gtk.Entry()
+
+
+# GLOBAL WIDGETS
 container_system = Gtk.VBox()
 container_users = Gtk.VBox()
 container_netstat = Gtk.VBox()
@@ -41,12 +37,42 @@ container_lsof = Gtk.VBox()
 container_net = Gtk.VBox()
 container_nettop = Gtk.VBox()
 container_traffic = Gtk.VBox()
+
+tbuffer = Gtk.TextBuffer()
+tbuffer_users = Gtk.TextBuffer()
+tbuffer_netstat = Gtk.TextBuffer()
+tbuffer_lsof = Gtk.TextBuffer()
+tbuffer_net = Gtk.TextBuffer()
+tbuffer_nettop = Gtk.TextBuffer()
+tbuffer_traffic = Gtk.TextBuffer()
+
+entry1 = Gtk.Entry()
+entry2 = Gtk.Entry()
 label1 = Gtk.Label()
 button_pause = Gtk.Button()
 
 
-# DEFINE HANDLER FUNCTIONS
+# STARTUP CHECKS
+# CHECK IF WE'RE IN THE RIGHT DIRECTORY
+file = "./gtop.css"
+if os.path.exists(file):
+    print("Directory Check is OK. (CONTINUE)")
+else:
+    print("You must run gtop.py from its own directory. (EXIT)")
+    dialog = Gtk.MessageDialog(
+        title="gTop",
+        parent=None,
+        flags=0,
+        message_type=Gtk.MessageType.INFO,
+        buttons=Gtk.ButtonsType.OK,
+        text="You must run gtop.py from its own directory. (EXIT)"
+    )
+    dialog.run()
+    dialog.destroy()
+    sys.exit(0)
 
+
+# CODE HANDLER FUNCTIONS
 def minimize_window(win):
     win.iconify()
 
@@ -344,7 +370,7 @@ def Update_Nettop():
         global buffer
         global traffic_buffer
         nettop = buffer
-        result = subprocess.Popen("nettop -l 1 | grep -v udp | grep -v tcp | awk '{print $2,$3,$4,$5,$6}' | grep -v \"0 B 0\"", shell=True, stdout=subprocess.PIPE)
+        result = subprocess.Popen("nettop -l 1 -J time,bytes_in,bytes_out | grep -v udp | grep -v tcp | grep -v \"0 B\" |  awk '{print $2, $3, $4, $5, $6, $7, $8}'", shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         ntop = str(out[0])
         #print(str(txt))
@@ -708,6 +734,7 @@ def button_pause_clicked(obj):
         button_pause.set_tooltip_text("Pause")
 
 
+# CREATE GTK APPLICATION
 class MyApplication(Gtk.Application):
     def __init__(self):
         super().__init__(application_id="com.sprokkel78.gtop")
@@ -1147,7 +1174,7 @@ thread_traffic = Thread(target=Update_Traffic)
 thread_traffic.daemon = True
 thread_traffic.start()
 
-# START APP
+# START APPLICATION
 app = MyApplication()
 exit_status = app.run(sys.argv)
 sys.exit(exit_status)
