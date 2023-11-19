@@ -527,13 +527,13 @@ def Update_Traffic():
             en0_bytes_sent_end, en0_bytes_recv_end = get_interface_bandwidth("en0")
             en1_bytes_sent_end, en1_bytes_recv_end = get_interface_bandwidth("en1")
 
-            en0_bytes_send = en0_bytes_send + (en0_bytes_sent_end - en0_bytes_sent_start) / 1024
+            en0_bytes_send = en0_bytes_send + (en0_bytes_sent_end - en0_bytes_sent_start) / 1000
             e0bs = round(en0_bytes_send, 2)
-            en0_bytes_recv = en0_bytes_recv + (en0_bytes_recv_end - en0_bytes_recv_start) / 1024
+            en0_bytes_recv = en0_bytes_recv + (en0_bytes_recv_end - en0_bytes_recv_start) / 1000
             e0br = round(en0_bytes_recv, 2)
-            en1_bytes_send = en1_bytes_send + (en1_bytes_sent_end - en1_bytes_sent_start) / 1024
+            en1_bytes_send = en1_bytes_send + (en1_bytes_sent_end - en1_bytes_sent_start) / 1000
             e1bs = round(en1_bytes_send, 2)
-            en1_bytes_recv = en1_bytes_recv + (en1_bytes_recv_end - en1_bytes_recv_start) / 1024
+            en1_bytes_recv = en1_bytes_recv + (en1_bytes_recv_end - en1_bytes_recv_start) / 1000
             e1br = round(en1_bytes_recv, 2)
             z = z + 1
 
@@ -556,10 +556,10 @@ def Update_Traffic():
 
         traffic_buffer = txtb
 
-        total_en0_out = round((total_en0_out + en0_bytes_send / 1024), 2)
-        total_en0_in = round((total_en0_in + en0_bytes_recv / 1024), 2)
-        total_en1_out = round((total_en1_out + en1_bytes_send / 1024), 2)
-        total_en1_in = round((total_en1_in + en1_bytes_recv / 1024), 2)
+        total_en0_out = round((total_en0_out + en0_bytes_send / 1000), 2)
+        total_en0_in = round((total_en0_in + en0_bytes_recv / 1000), 2)
+        total_en1_out = round((total_en1_out + en1_bytes_send / 1000), 2)
+        total_en1_in = round((total_en1_in + en1_bytes_recv / 1000), 2)
 
         global traffic_reset
 
@@ -576,10 +576,10 @@ def Update_Traffic():
         txt = txt + "    Interface-2 out : " + str(total_en1_out) + " MB\n"
         txt = txt + "    Interface-2 in  : " + str(total_en1_in) + " MB\n\n"
 
-        gb_en0_out = round((total_en0_out / 1024), 2)
-        gb_en0_in  = round((total_en0_in / 1024), 2)
-        gb_en1_out  = round((total_en1_out / 1024), 2)
-        gb_en1_in  = round((total_en1_in / 1024), 2)
+        gb_en0_out = round((total_en0_out / 1000), 2)
+        gb_en0_in  = round((total_en0_in / 1000), 2)
+        gb_en1_out  = round((total_en1_out / 1000), 2)
+        gb_en1_in  = round((total_en1_in / 1000), 2)
 
         txt = txt + "    TOTAL USAGE in GiB:\n\n"
         txt = txt + "    Interface-1 out : " + str(gb_en0_out) + " GiB\n"
