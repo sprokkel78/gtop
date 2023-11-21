@@ -27,7 +27,8 @@ traffic_reset = 0
 buffer = ""
 present = 0
 traffic_buffer = ""
-
+dns_ethernet = ""
+dns_wifi = ""
 
 # GLOBAL WIDGETS
 container_system = Gtk.VBox()
@@ -390,6 +391,8 @@ def Update_Nettop():
 def Update_Net():
     i = 0
     while i == 0:
+        get_dns_servers()
+
         global nic_active
         global buffer
         global traffic_buffer
@@ -414,11 +417,18 @@ def Update_Net():
                 netlist = netlist + "\n    " + net
 
             y = y + 1
+
         nic_active = 0
         x = y - 1
         if x < len(txts):
             if "inactive" not in txts[x]:
                 nic_active = nic_active + 1
+
+        y = 0
+        netlist = netlist + "\n"
+        while y < len(dns_ethernet) -1:
+            netlist = netlist + "\n    DNS: " + dns_ethernet[y]
+            y = y + 1
 
         result = subprocess.Popen("ifconfig en1",
                                   shell=True, stdout=subprocess.PIPE)
@@ -439,10 +449,17 @@ def Update_Net():
             else:
                 netlist = netlist + "\n    " + net
             y = y + 1
+
         x = y - 1
         if x < len(txts):
             if "inactive" not in txts[x]:
                 nic_active = nic_active + 1
+
+        y = 0
+        netlist = netlist + "\n"
+        while y < len(dns_wifi) - 1:
+            netlist = netlist + "\n    DNS: " + dns_wifi[y]
+            y = y + 1
 
         result = subprocess.Popen("route -n get default | grep gateway",
                                   shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -732,6 +749,35 @@ def button_pause_clicked(obj):
         image_pause_stop.set_from_file("./images/b_pause.png")
         button_pause.set_image(image_pause_stop)
         button_pause.set_tooltip_text("Pause")
+
+
+def get_dns_servers():
+    global dns_ethernet
+    global dns_wifi
+
+    result = subprocess.Popen("networksetup -getdnsservers Ethernet",
+                                  shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out = result.communicate()
+    dns_ethernet = str(out[0]).split("\\n")
+    y = 0
+    while y < len(dns_ethernet) - 1:
+        if "b'" in dns_ethernet[y]:
+            remb = dns_ethernet[y].split("b'")
+            dns_ethernet[y] = remb[1]
+        # print(dns_ethernet[y])
+        y = y + 1
+
+    result = subprocess.Popen("networksetup -getdnsservers Wi-Fi",
+                              shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out = result.communicate()
+    dns_wifi = str(out[0]).split("\\n")
+    y = 0
+    while y < len(dns_wifi) - 1:
+        if "b'" in dns_wifi[y]:
+            remb = dns_wifi[y].split("b'")
+            dns_wifi[y] = remb[1]
+        # print(dns_wifi[y])
+        y = y + 1
 
 
 # CREATE GTK APPLICATION
