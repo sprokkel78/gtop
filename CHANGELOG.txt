@@ -2,6 +2,9 @@
 
 # NOTES:
 
+- DNS SERVERS may not show on the correct interface in network view in case
+  network cards are different then en0 = Ethernet and en1 = Wifi
+
 - ctrl-q will now quit the application
 - ctrl-h will now hide or minimise the application
 
