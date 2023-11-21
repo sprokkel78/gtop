@@ -7,6 +7,9 @@
 
 # CHANGELOG
 
+# gtop-sprokkel78 1.1.8
+- added free memory usage to the overview.
+
 # gtop-sprokkel78 1.1.7
 - added a directory check incase the app is started from a wrong path.
 - fixed a visual text bug in Network Applications view.
