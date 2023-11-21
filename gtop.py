@@ -142,6 +142,9 @@ def Write_Header():
     else:
         txt = txt + "\n    System Connections   : " + str(connections) + " connections are in use."
 
+    memory_info = psutil.virtual_memory()
+    txt = txt + (f"\n    System Memory Free   : {round((memory_info.available / 1000 / 1000 / 1000), 2)} GigaByte.")
+
     txt = txt + "\n    System Load Averages : "
     load_avg = os.getloadavg()
     rounded_load_avg_a = round(load_avg[0], 2)
@@ -153,6 +156,7 @@ def Write_Header():
     out = str(out[0]).split('b\'')
     out = str(out[1]).split('\\n')
     txt = txt + "\n    System Process List  : Total CPU usage " + str(out[0]) + "%\n\n"
+
 
     global buffer
     buffer = txt
