@@ -15,3 +15,6 @@ Don't forget to run the app with the python3 binary that was installed
 with homebrew. It's in /opt/homebrew/bin/python3  
 
 Note: You must run gtop.py from it's own directory or it won't find the css file.
+
+Check https://github.com/sprokkel78/gtop for development and pre-releases.
+
