@@ -400,6 +400,30 @@ def Update_Net():
         global nic_active
         global buffer
         global traffic_buffer
+
+        # VERIFY WIRED OR WIFI
+        wifi_card = ""
+
+        result = subprocess.Popen("networksetup -getinfo Wi-Fi | tail -n 1 | cut -d \" \" -f 3", shell=True, stdout=subprocess.PIPE)
+        out = result.communicate()
+        mac_address = str(out[0]).split("\\n")
+        mac_address = mac_address[0].split("b'")
+        print(mac_address[1])
+
+        result = subprocess.Popen("ifconfig en0 | grep " + mac_address[1], shell=True,
+                                  stdout=subprocess.PIPE)
+        out = result.communicate()
+        print("en0 = " + str(out[0]))
+        if mac_address[1] in str(out[0]):
+            wifi_card = "en0"
+
+        result = subprocess.Popen("ifconfig en1 | grep " + mac_address[1], shell=True,
+                                  stdout=subprocess.PIPE)
+        out = result.communicate()
+        print("en1 = " + str(out[0]))
+        if mac_address[1] in str(out[0]):
+            wifi_card = "en1"
+
         netlist = buffer
         netlist = netlist + traffic_buffer
         result = subprocess.Popen("ifconfig en0", shell=True, stdout=subprocess.PIPE)
@@ -408,7 +432,11 @@ def Update_Net():
         # print(str(txt))
         txts = txt.split('\\n\\t')
         y = 0
-        netlist = netlist + "    INTERFACE-1:\n "
+        if wifi_card == "en0":
+            netlist = netlist + "    INTERFACE-1: (WIFI)\n "
+        else:
+            netlist = netlist + "    INTERFACE-1:\n "
+
         while y < len(txts):
             net = txts[y]
             if y == 0:
@@ -428,11 +456,17 @@ def Update_Net():
             if "inactive" not in txts[x]:
                 nic_active = nic_active + 1
 
-        y = 0
         netlist = netlist + "\n"
-        while y < len(dns_ethernet) -1:
-            netlist = netlist + "\n    DNS: " + dns_ethernet[y]
-            y = y + 1
+        if wifi_card == "en0":
+            y = 0
+            while y < len(dns_ethernet) -1:
+                netlist = netlist + "\n    DNS: " + dns_wifi[y]
+                y = y + 1
+        else:
+            y = 0
+            while y < len(dns_ethernet) -1:
+                netlist = netlist + "\n    DNS: " + dns_ethernet[y]
+                y = y + 1
 
         result = subprocess.Popen("ifconfig en1",
                                   shell=True, stdout=subprocess.PIPE)
@@ -441,7 +475,11 @@ def Update_Net():
         # print(str(txt))
         txts = txt.split('\\n\\t')
         y = 0
-        netlist = netlist + "\n\n\n    INTERFACE-2:\n"
+        if wifi_card == "en1":
+            netlist = netlist + "\n\n\n    INTERFACE-2: (WIFI)\n"
+        else:
+            netlist = netlist + "\n\n\n    INTERFACE-2:\n"
+
         while y < len(txts):
             net = txts[y]
             if y == 0:
@@ -459,11 +497,18 @@ def Update_Net():
             if "inactive" not in txts[x]:
                 nic_active = nic_active + 1
 
-        y = 0
+
         netlist = netlist + "\n"
-        while y < len(dns_wifi) - 1:
-            netlist = netlist + "\n    DNS: " + dns_wifi[y]
-            y = y + 1
+        if wifi_card == "en1":
+            y = 0
+            while y < len(dns_wifi) - 1:
+                netlist = netlist + "\n    DNS: " + dns_wifi[y]
+                y = y + 1
+        else:
+            y = 0
+            while y < len(dns_wifi) - 1:
+                netlist = netlist + "\n    DNS: " + dns_ethernet[y]
+                y = y + 1
 
         result = subprocess.Popen("route -n get default | grep gateway",
                                   shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

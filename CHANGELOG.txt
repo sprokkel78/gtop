@@ -2,9 +2,6 @@
 
 # NOTES:
 
-- DNS SERVERS may not show on the correct interface in network view in case
-  network cards are different then en0 = Ethernet and en1 = Wifi
-
 - ctrl-q will now quit the application
 - ctrl-h will now hide or minimise the application
 
@@ -12,6 +9,8 @@
 
 # gtop-sprokkel78 1.1.8
 - added free memory usage to the overview.
+- fixed the bug in network view for ethernet/wifi cards + coherent dns.
+- in network view, the wifi card has now a label (WIFI).k
 
 # gtop-sprokkel78 1.1.7
 - added a directory check incase the app is started from a wrong path.
