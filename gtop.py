@@ -408,19 +408,19 @@ def Update_Net():
         out = result.communicate()
         mac_address = str(out[0]).split("\\n")
         mac_address = mac_address[0].split("b'")
-        print(mac_address[1])
+        # print(mac_address[1])
 
         result = subprocess.Popen("ifconfig en0 | grep " + mac_address[1], shell=True,
                                   stdout=subprocess.PIPE)
         out = result.communicate()
-        print("en0 = " + str(out[0]))
+        # print("en0 = " + str(out[0]))
         if mac_address[1] in str(out[0]):
             wifi_card = "en0"
 
         result = subprocess.Popen("ifconfig en1 | grep " + mac_address[1], shell=True,
                                   stdout=subprocess.PIPE)
         out = result.communicate()
-        print("en1 = " + str(out[0]))
+        # print("en1 = " + str(out[0]))
         if mac_address[1] in str(out[0]):
             wifi_card = "en1"
 
