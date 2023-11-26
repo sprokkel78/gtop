@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e55d9d1-219f-462e-9b13-e3ee27e0ba17" name="Changes" comment="fixed typo.">
+    <list default="true" id="5e55d9d1-219f-462e-9b13-e3ee27e0ba17" name="Changes" comment="removed unusefull output prints">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gtop.py" beforeDir="false" afterPath="$PROJECT_DIR$/gtop.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +107,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700677053442</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="removed unusefull output prints">
+      <option name="closed" value="true" />
+      <created>1700946924267</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1700946924267</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -118,6 +125,7 @@
     <MESSAGE value="added free memory usage to the overview." />
     <MESSAGE value="Update to CHANGELOG notes about DNS server information." />
     <MESSAGE value="fixed typo." />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed typo." />
+    <MESSAGE value="removed unusefull output prints" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed unusefull output prints" />
   </component>
 </project>
