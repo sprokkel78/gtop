@@ -403,6 +403,7 @@ def Update_Net():
 
         # VERIFY WIRED OR WIFI
         wifi_card = ""
+        wifi_network = ""
 
         result = subprocess.Popen("networksetup -getinfo Wi-Fi | tail -n 1 | cut -d \" \" -f 3", shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
@@ -416,6 +417,12 @@ def Update_Net():
         # print("en0 = " + str(out[0]))
         if mac_address[1] in str(out[0]):
             wifi_card = "en0"
+            result = subprocess.Popen("networksetup -getairportnetwork en0", shell=True,
+                                  stdout=subprocess.PIPE)
+            out = result.communicate()
+            wifi_network = str(out[0]).split("\\n")
+            wifi_network = wifi_network[0].split("b'")
+            # print(wifi_network[1])
 
         result = subprocess.Popen("ifconfig en1 | grep " + mac_address[1], shell=True,
                                   stdout=subprocess.PIPE)
@@ -423,6 +430,12 @@ def Update_Net():
         # print("en1 = " + str(out[0]))
         if mac_address[1] in str(out[0]):
             wifi_card = "en1"
+            result = subprocess.Popen("networksetup -getairportnetwork en1", shell=True,
+                                  stdout=subprocess.PIPE)
+            out = result.communicate()
+            wifi_network = str(out[0]).split("\\n")
+            wifi_network = wifi_network[0].split("b'")
+            # print(wifi_network[1])
 
         netlist = buffer
         netlist = netlist + traffic_buffer
@@ -462,6 +475,7 @@ def Update_Net():
             while y < len(dns_ethernet) -1:
                 netlist = netlist + "\n    DNS: " + dns_wifi[y]
                 y = y + 1
+            netlist = netlist + "\n\n    " + wifi_network[1]
         else:
             y = 0
             while y < len(dns_ethernet) -1:
@@ -504,6 +518,8 @@ def Update_Net():
             while y < len(dns_wifi) - 1:
                 netlist = netlist + "\n    DNS: " + dns_wifi[y]
                 y = y + 1
+            netlist = netlist + "\n\n    " + wifi_network[1]
+
         else:
             y = 0
             while y < len(dns_wifi) - 1:

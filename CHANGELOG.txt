@@ -7,6 +7,9 @@
 
 # CHANGELOG
 
+# gtop-sprokkel78 1.1.9
+- added current connected wifi-network to network view.
+
 # gtop-sprokkel78 1.1.8
 - added free memory usage to the overview.
 - fixed the bug in network view for ethernet/wifi cards + coherent dns.

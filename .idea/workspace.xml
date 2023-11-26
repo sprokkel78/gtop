@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e55d9d1-219f-462e-9b13-e3ee27e0ba17" name="Changes" comment="removed unusefull output prints">
+    <list default="true" id="5e55d9d1-219f-462e-9b13-e3ee27e0ba17" name="Changes" comment="updated version to 1.1.9">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gtop.py" beforeDir="false" afterPath="$PROJECT_DIR$/gtop.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,16 +33,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/snotter/Projects/Python3/gtop&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "add-wifi-network-name",
+    "last_opened_file_path": "/Users/snotter/Projects/Python3/gtop"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -115,7 +116,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700946924267</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="updated version to 1.1.9">
+      <option name="closed" value="true" />
+      <created>1701031892020</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1701031892020</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -126,6 +135,7 @@
     <MESSAGE value="Update to CHANGELOG notes about DNS server information." />
     <MESSAGE value="fixed typo." />
     <MESSAGE value="removed unusefull output prints" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed unusefull output prints" />
+    <MESSAGE value="updated version to 1.1.9" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated version to 1.1.9" />
   </component>
 </project>
