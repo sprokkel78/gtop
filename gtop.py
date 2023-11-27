@@ -490,9 +490,9 @@ def Update_Net():
         txts = txt.split('\\n\\t')
         y = 0
         if wifi_card == "en1":
-            netlist = netlist + "\n\n\n    INTERFACE-2: (WIFI)\n"
+            netlist = netlist + "\n\n    INTERFACE-2: (WIFI)\n"
         else:
-            netlist = netlist + "\n\n\n    INTERFACE-2:\n"
+            netlist = netlist + "\n\n    INTERFACE-2:\n"
 
         while y < len(txts):
             net = txts[y]
@@ -530,7 +530,7 @@ def Update_Net():
                                   shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = result.communicate()
         # print(str(out))
-        netlist = netlist + "\n\n\n    GATEWAY:\n"
+        netlist = netlist + "\n\n    GATEWAY:\n"
         if len(str(out)) >= 0:
             txt = str(out)
             # print(str(txt))
