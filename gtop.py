@@ -157,7 +157,6 @@ def Write_Header():
     out = str(out[1]).split('\\n')
     txt = txt + "\n    System Process List  : Total CPU usage " + str(out[0]) + "%\n\n"
 
-
     global buffer
     buffer = txt
     return txt
@@ -187,12 +186,6 @@ def get_process_list():
             plist = " error in filter"
 
     return plist
-
-
-def Update_Buffer(txt):
-    global pause
-    if pause == 0:
-        tbuffer.set_text(txt)
 
 
 def Update_System():
@@ -247,150 +240,6 @@ def Update_Users():
         GLib.idle_add(Update_Users_Buffer, userlist)
         sleep(5)
 
-
-def Update_Users_Buffer(users):
-    global pause
-    if pause == 0:
-        tbuffer_users.set_text(users)
-
-
-def Update_Netstat():
-    i = 0
-    while i == 0:
-        global buffer
-        global traffic_buffer
-        netlist = buffer
-        netlist = netlist + traffic_buffer
-        result = subprocess.Popen("netstat -anvp tcp | grep ESTAB | awk '{print $1, $4, $5, $6, $9}'",
-                                  shell=True, stdout=subprocess.PIPE)
-        out = result.communicate()
-        txt = str(out[0])
-        # print(str(txt))
-        txts = txt.split('\\n')
-        y = 0
-        netlist = netlist + "    NETWORK CONNECTIONS:\n"
-        while y < len(txts):
-            net = txts[y]
-            if y == 0:
-                txtss = net.split('b\'')
-                net = txtss[1]
-            if net != "'":
-                netlist = netlist + "\n    " + net
-            y = y + 1
-
-        result = subprocess.Popen("netstat -anvp tcp | grep ESTAB | wc -l",
-                                  shell=True, stdout=subprocess.PIPE)
-        out = result.communicate()
-        txt = str(out[0])
-        # print(txt)
-        global connections
-        connections = 0
-        if len(txt) > 0:
-            txt_split = txt.split('b\'')
-            txt_line = txt_split[1].split('\\n\'')
-            connections = str(txt_line[0]).strip()
-        # print(connections)
-        GLib.idle_add(Update_Netstat_Buffer, netlist)
-        sleep(5)
-
-
-def Update_Netstat_Buffer(netstat):
-    global pause
-    if pause == 0:
-        tbuffer_netstat.set_text(netstat)
-
-
-def Update_Lsof():
-    i = 0
-
-    while i == 0:
-        global services
-        global nic_active
-        global buffer
-        global traffic_buffer
-        lsoflist = buffer
-        lsoflist = lsoflist + traffic_buffer
-        result = subprocess.Popen("lsof -i -n -P | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $9, $10}'",
-                                  shell=True, stdout=subprocess.PIPE)
-        out = result.communicate()
-        txt = str(out[0])
-        # print(str(txt))
-        txts = txt.split('\\n')
-        y = 0
-        lsoflist = lsoflist + "    SOCKETS IPv4:\n"
-        while y < len(txts):
-            net = txts[y]
-            if y == 0:
-                txtss = net.split('b\'')
-                net = txtss[1]
-            if net != "'":
-                lsoflist = lsoflist + "\n    " + net
-            y = y + 1
-        result = subprocess.Popen("lsof -i -n -P | grep TCP | wc -l",
-                                  shell=True, stdout=subprocess.PIPE)
-        out = result.communicate()
-        service = str(out[0])
-        services_split = service.split('b\'')
-        services_line = services_split[1].split('\\n')
-        # print(services_line[0].strip())
-        services = 0
-        services = services_line[0].strip()
-
-        result = subprocess.Popen("lsof -i -n -P | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $9, $10}'",
-                                  shell=True, stdout=subprocess.PIPE)
-        out = result.communicate()
-        txt = str(out[0])
-        # print(str(txt))
-        txts = txt.split('\\n')
-        y = 0
-        lsoflist = lsoflist + "\n\n\n    SOCKETS IPv6:\n"
-        while y < len(txts):
-            net = txts[y]
-            if y == 0:
-                txtss = net.split('b\'')
-                net = txtss[1]
-            if net != "'":
-                lsoflist = lsoflist + "\n    " + net
-            y = y + 1
-
-        GLib.idle_add(Update_Lsof_Buffer, lsoflist)
-        sleep(5)
-
-
-def Update_Lsof_Buffer(lsof):
-    global pause
-    if pause == 0:
-        tbuffer_lsof.set_text(lsof)
-
-
-def Update_Nettop_Buffer(nettop):
-    global pause
-    if pause == 0:
-        tbuffer_nettop.set_text(nettop)
-
-
-def Update_Nettop():
-    i = 0
-    while i == 0:
-        global buffer
-        global traffic_buffer
-        nettop = buffer
-        result = subprocess.Popen("nettop -l 1 -J time,bytes_in,bytes_out | grep -v udp | grep -v tcp | grep -v \"0 B\" |  awk '{print $2, $3, $4, $5, $6, $7, $8}'", shell=True, stdout=subprocess.PIPE)
-        out = result.communicate()
-        ntop = str(out[0])
-        #print(str(txt))
-        txts = ntop.split('\\n')
-        #print(txts[0])
-        y = 0
-        nettp = nettop + traffic_buffer
-        nettp = nettp + "    NETWORK APPLICATIONS:\n\n    Process.PID | Bytes IN | Bytes OUT\n "
-        while y < len(txts):
-                if y != 0 and y != len(txts) - 1:
-                    nettp = nettp + "\n    " + txts[y]
-                y = y + 1
-
-        GLib.idle_add(Update_Nettop_Buffer, nettp)
-        sleep(3)
 
 def Update_Net():
     i = 0
@@ -565,18 +414,125 @@ def Update_Net():
         sleep(5)
 
 
-def Update_Net_Buffer(net):
-    global pause
-    if pause == 0:
-        tbuffer_net.set_text(net)
+def Update_Lsof():
+    i = 0
+
+    while i == 0:
+        global services
+        global nic_active
+        global buffer
+        global traffic_buffer
+        lsoflist = buffer
+        lsoflist = lsoflist + traffic_buffer
+        result = subprocess.Popen("lsof -i -n -P | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $9, $10}'",
+                                  shell=True, stdout=subprocess.PIPE)
+        out = result.communicate()
+        txt = str(out[0])
+        # print(str(txt))
+        txts = txt.split('\\n')
+        y = 0
+        lsoflist = lsoflist + "    SOCKETS IPv4:\n"
+        while y < len(txts):
+            net = txts[y]
+            if y == 0:
+                txtss = net.split('b\'')
+                net = txtss[1]
+            if net != "'":
+                lsoflist = lsoflist + "\n    " + net
+            y = y + 1
+        result = subprocess.Popen("lsof -i -n -P | grep TCP | wc -l",
+                                  shell=True, stdout=subprocess.PIPE)
+        out = result.communicate()
+        service = str(out[0])
+        services_split = service.split('b\'')
+        services_line = services_split[1].split('\\n')
+        # print(services_line[0].strip())
+        services = 0
+        services = services_line[0].strip()
+
+        result = subprocess.Popen("lsof -i -n -P | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $9, $10}'",
+                                  shell=True, stdout=subprocess.PIPE)
+        out = result.communicate()
+        txt = str(out[0])
+        # print(str(txt))
+        txts = txt.split('\\n')
+        y = 0
+        lsoflist = lsoflist + "\n\n\n    SOCKETS IPv6:\n"
+        while y < len(txts):
+            net = txts[y]
+            if y == 0:
+                txtss = net.split('b\'')
+                net = txtss[1]
+            if net != "'":
+                lsoflist = lsoflist + "\n    " + net
+            y = y + 1
+
+        GLib.idle_add(Update_Lsof_Buffer, lsoflist)
+        sleep(5)
 
 
-def get_interface_bandwidth(interface_name):
-    if_stats = psutil.net_if_stats()
-    if interface_name in if_stats:
-        net_io = psutil.net_io_counters(pernic=True)[interface_name]
-        return net_io.bytes_sent, net_io.bytes_recv
-    return None
+def Update_Netstat():
+    i = 0
+    while i == 0:
+        global buffer
+        global traffic_buffer
+        netlist = buffer
+        netlist = netlist + traffic_buffer
+        result = subprocess.Popen("netstat -anvp tcp | grep ESTAB | awk '{print $1, $4, $5, $6, $9}'",
+                                  shell=True, stdout=subprocess.PIPE)
+        out = result.communicate()
+        txt = str(out[0])
+        # print(str(txt))
+        txts = txt.split('\\n')
+        y = 0
+        netlist = netlist + "    NETWORK CONNECTIONS:\n"
+        while y < len(txts):
+            net = txts[y]
+            if y == 0:
+                txtss = net.split('b\'')
+                net = txtss[1]
+            if net != "'":
+                netlist = netlist + "\n    " + net
+            y = y + 1
+
+        result = subprocess.Popen("netstat -anvp tcp | grep ESTAB | wc -l",
+                                  shell=True, stdout=subprocess.PIPE)
+        out = result.communicate()
+        txt = str(out[0])
+        # print(txt)
+        global connections
+        connections = 0
+        if len(txt) > 0:
+            txt_split = txt.split('b\'')
+            txt_line = txt_split[1].split('\\n\'')
+            connections = str(txt_line[0]).strip()
+        # print(connections)
+        GLib.idle_add(Update_Netstat_Buffer, netlist)
+        sleep(5)
+
+
+def Update_Nettop():
+    i = 0
+    while i == 0:
+        global buffer
+        global traffic_buffer
+        nettop = buffer
+        result = subprocess.Popen("nettop -l 1 -J time,bytes_in,bytes_out | grep -v udp | grep -v tcp | grep -v \"0 B\" |  awk '{print $2, $3, $4, $5, $6, $7, $8}'", shell=True, stdout=subprocess.PIPE)
+        out = result.communicate()
+        ntop = str(out[0])
+        #print(str(txt))
+        txts = ntop.split('\\n')
+        #print(txts[0])
+        y = 0
+        nettp = nettop + traffic_buffer
+        nettp = nettp + "    NETWORK APPLICATIONS:\n\n    Process.PID | Bytes IN | Bytes OUT\n "
+        while y < len(txts):
+                if y != 0 and y != len(txts) - 1:
+                    nettp = nettp + "\n    " + txts[y]
+                y = y + 1
+
+        GLib.idle_add(Update_Nettop_Buffer, nettp)
+        sleep(3)
 
 
 def Update_Traffic():
@@ -596,6 +552,7 @@ def Update_Traffic():
         en0_bytes_recv = 0
         en1_bytes_recv = 0
         en1_bytes_send = 0
+
         e0bs = 0
         e0br = 0
         e1bs = 0
@@ -603,11 +560,20 @@ def Update_Traffic():
 
         z = 0
         while z < 5:
-            en0_bytes_sent_start, en0_bytes_recv_start = get_interface_bandwidth("en0")
-            en1_bytes_sent_start, en1_bytes_recv_start = get_interface_bandwidth("en1")
+            try:
+                en0_bytes_sent_start, en0_bytes_recv_start = get_interface_bandwidth("en0")
+                en1_bytes_sent_start, en1_bytes_recv_start = get_interface_bandwidth("en1")
+            except:
+                en0_bytes_sent_start, en0_bytes_recv_start = 1, 1
+                en1_bytes_sent_start, en1_bytes_recv_start = 1, 1
+
             sleep(0.2)
-            en0_bytes_sent_end, en0_bytes_recv_end = get_interface_bandwidth("en0")
-            en1_bytes_sent_end, en1_bytes_recv_end = get_interface_bandwidth("en1")
+            try:
+                en0_bytes_sent_end, en0_bytes_recv_end = get_interface_bandwidth("en0")
+                en1_bytes_sent_end, en1_bytes_recv_end = get_interface_bandwidth("en1")
+            except:
+                en0_bytes_sent_end, en0_bytes_recv_end = 2, 2
+                en1_bytes_sent_end, en1_bytes_recv_end = 2, 2
 
             en0_bytes_send = en0_bytes_send + (en0_bytes_sent_end - en0_bytes_sent_start) / 1000
             e0bs = round(en0_bytes_send, 2)
@@ -635,7 +601,6 @@ def Update_Traffic():
         txtb = txtb + "\n"
 
         global traffic_buffer
-
         traffic_buffer = txtb
 
         total_en0_out = round((total_en0_out + en0_bytes_send / 1000), 2)
@@ -672,10 +637,54 @@ def Update_Traffic():
         GLib.idle_add(Update_Traffic_Buffer, txt)
 
 
+def Update_Buffer(txt):
+    global pause
+    if pause == 0:
+        tbuffer.set_text(txt)
+
+
+def Update_Users_Buffer(users):
+    global pause
+    if pause == 0:
+        tbuffer_users.set_text(users)
+
+
+def Update_Net_Buffer(net):
+    global pause
+    if pause == 0:
+        tbuffer_net.set_text(net)
+
+
+def Update_Lsof_Buffer(lsof):
+    global pause
+    if pause == 0:
+        tbuffer_lsof.set_text(lsof)
+
+
+def Update_Netstat_Buffer(netstat):
+    global pause
+    if pause == 0:
+        tbuffer_netstat.set_text(netstat)
+
+
+def Update_Nettop_Buffer(nettop):
+    global pause
+    if pause == 0:
+        tbuffer_nettop.set_text(nettop)
+
+
 def Update_Traffic_Buffer(traffic):
     global pause
     if pause == 0:
         tbuffer_traffic.set_text(traffic)
+
+
+def get_interface_bandwidth(interface_name):
+    if_stats = psutil.net_if_stats()
+    if interface_name in if_stats:
+        net_io = psutil.net_io_counters(pernic=True)[interface_name]
+        return net_io.bytes_sent, net_io.bytes_recv
+    return None
 
 
 def filter_button_run_clicked(obj):
