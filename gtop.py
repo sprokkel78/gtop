@@ -29,6 +29,7 @@ present = 0
 traffic_buffer = ""
 dns_ethernet = ""
 dns_wifi = ""
+curr_time = ""
 
 # GLOBAL WIDGETS
 container_system = Gtk.VBox()
@@ -536,6 +537,8 @@ def Update_Nettop():
 
 
 def Update_Traffic():
+    global curr_time
+    curr_time = datetime.datetime.now()
 
     total_en0_out = 0
     total_en0_in = 0
@@ -544,6 +547,8 @@ def Update_Traffic():
 
     y = 0
     while y == 0:
+        new_time = datetime.datetime.now()
+        tot_time = new_time - curr_time
 
         global buffer
         txt = buffer
@@ -641,6 +646,9 @@ def Update_Traffic():
         txt = txt + "    Interface-1 in  : " + str(gb_en0_in) + " GiB\n"
         txt = txt + "    Interface-2 out : " + str(gb_en1_out) + " GiB\n"
         txt = txt + "    Interface-2 in  : " + str(gb_en1_in) + " GiB\n"
+
+        tot_time = str(tot_time).split(".")
+        txt = txt + "\n    Counter Uptime  : " + str(tot_time[0])
 
         GLib.idle_add(Update_Traffic_Buffer, txt)
 
@@ -811,7 +819,9 @@ def button_traffic_clicked(obj):
 
 def button_reset_traffic_clicked(obj):
     global traffic_reset
+    global curr_time
     traffic_reset = 1
+    curr_time = datetime.datetime.now()
 
 
 def button_pause_clicked(obj):

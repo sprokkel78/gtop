@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e55d9d1-219f-462e-9b13-e3ee27e0ba17" name="Changes" comment="possible fix for traffic view crash.2">
+    <list default="true" id="5e55d9d1-219f-462e-9b13-e3ee27e0ba17" name="Changes" comment="possible fix for traffic view crash.3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gtop.py" beforeDir="false" afterPath="$PROJECT_DIR$/gtop.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -16,7 +17,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="add-wifi-network-name" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -39,7 +40,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "develop",
+    "git-widget-placeholder": "add-time-to-network-view",
     "last_opened_file_path": "/Users/snotter/Projects/Python3/gtop",
     "settings.editor.selected.configurable": "configurable.group.tools"
   }
@@ -149,7 +150,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701267402832</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="possible fix for traffic view crash.3">
+      <option name="closed" value="true" />
+      <created>1701268425156</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1701268425156</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -164,6 +173,7 @@
     <MESSAGE value="removed some empty lines in network view." />
     <MESSAGE value="possible fix for traffic view crash." />
     <MESSAGE value="possible fix for traffic view crash.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="possible fix for traffic view crash.2" />
+    <MESSAGE value="possible fix for traffic view crash.3" />
+    <option name="LAST_COMMIT_MESSAGE" value="possible fix for traffic view crash.3" />
   </component>
 </project>
