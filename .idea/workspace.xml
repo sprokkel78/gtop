@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e55d9d1-219f-462e-9b13-e3ee27e0ba17" name="Changes" comment="possible fix for traffic view crash.">
+    <list default="true" id="5e55d9d1-219f-462e-9b13-e3ee27e0ba17" name="Changes" comment="possible fix for traffic view crash.2">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gtop.py" beforeDir="false" afterPath="$PROJECT_DIR$/gtop.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -140,7 +141,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701215735745</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="possible fix for traffic view crash.2">
+      <option name="closed" value="true" />
+      <created>1701267402832</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1701267402832</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -154,6 +163,7 @@
     <MESSAGE value="updated version to 1.1.9" />
     <MESSAGE value="removed some empty lines in network view." />
     <MESSAGE value="possible fix for traffic view crash." />
-    <option name="LAST_COMMIT_MESSAGE" value="possible fix for traffic view crash." />
+    <MESSAGE value="possible fix for traffic view crash.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="possible fix for traffic view crash.2" />
   </component>
 </project>

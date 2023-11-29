@@ -560,18 +560,26 @@ def Update_Traffic():
 
         z = 0
         while z < 5:
+            en0_bytes_sent_start, en0_bytes_recv_start = 0, 0
+            en1_bytes_sent_start, en1_bytes_recv_start = 0, 0
+            en0_bytes_sent_end, en0_bytes_recv_end = 0, 0
+            en1_bytes_sent_end, en1_bytes_recv_end = 0, 0
+
             try:
                 en0_bytes_sent_start, en0_bytes_recv_start = get_interface_bandwidth("en0")
                 en1_bytes_sent_start, en1_bytes_recv_start = get_interface_bandwidth("en1")
             except:
                 en0_bytes_sent_start, en0_bytes_recv_start = 0, 0
                 en1_bytes_sent_start, en1_bytes_recv_start = 0, 0
-
+                en0_bytes_sent_end, en0_bytes_recv_end = 0, 0
+                en1_bytes_sent_end, en1_bytes_recv_end = 0, 0
             sleep(0.2)
             try:
                 en0_bytes_sent_end, en0_bytes_recv_end = get_interface_bandwidth("en0")
                 en1_bytes_sent_end, en1_bytes_recv_end = get_interface_bandwidth("en1")
             except:
+                en0_bytes_sent_start, en0_bytes_recv_start = 0, 0
+                en1_bytes_sent_start, en1_bytes_recv_start = 0, 0
                 en0_bytes_sent_end, en0_bytes_recv_end = 0, 0
                 en1_bytes_sent_end, en1_bytes_recv_end = 0, 0
 
