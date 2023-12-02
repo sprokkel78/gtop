@@ -7,6 +7,9 @@
 
 # CHANGELOG
 
+# gtop-sprokkel78 1.1.10
+-
+
 # gtop-sprokkel78 1.1.9
 - added current connected wifi-network to network view.
 - added counter uptime to the traffic view.
