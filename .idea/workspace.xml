@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e55d9d1-219f-462e-9b13-e3ee27e0ba17" name="Changes" comment="added counter uptime to the traffic view.">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="5e55d9d1-219f-462e-9b13-e3ee27e0ba17" name="Changes" comment="fix for counter bug in traffic view. 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gtop.py" beforeDir="false" afterPath="$PROJECT_DIR$/gtop.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +156,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701268425156</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="fix for counter bug in traffic view. 1">
+      <option name="closed" value="true" />
+      <created>1701440694190</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1701440694190</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -174,6 +180,7 @@
     <MESSAGE value="possible fix for traffic view crash." />
     <MESSAGE value="possible fix for traffic view crash.2" />
     <MESSAGE value="possible fix for traffic view crash.3" />
-    <option name="LAST_COMMIT_MESSAGE" value="possible fix for traffic view crash.3" />
+    <MESSAGE value="fix for counter bug in traffic view. 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix for counter bug in traffic view. 1" />
   </component>
 </project>
