@@ -430,7 +430,7 @@ def Update_Lsof():
         lsoflist = buffer
         lsoflist = lsoflist + traffic_buffer
         if lsof_resolv == 0:
-            result = subprocess.Popen("lsof -i -n -P | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $9, $10}'",
+            result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                   shell=True, stdout=subprocess.PIPE)
         if lsof_resolv == 1:
             try:
@@ -443,10 +443,10 @@ def Update_Lsof():
                 internet = 0
 
             if internet == 1:
-                result = subprocess.Popen("lsof -i -P | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $9, $10}'",
+                result = subprocess.Popen("lsof -i -P | grep -v '\\*:\\*' | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                       shell=True, stdout=subprocess.PIPE)
             else:
-                result = subprocess.Popen("lsof -i -n -P | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $9, $10}'",
+                result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                           shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         txt = str(out[0])
@@ -462,7 +462,7 @@ def Update_Lsof():
             if net != "'":
                 lsoflist = lsoflist + "\n    " + net
             y = y + 1
-        result = subprocess.Popen("lsof -i -n -P | grep TCP | wc -l",
+        result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | wc -l",
                                   shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         service = str(out[0])
@@ -473,7 +473,7 @@ def Update_Lsof():
         services = services_line[0].strip()
 
         if lsof_resolv == 0:
-            result = subprocess.Popen("lsof -i -n -P | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $9, $10}'",
+            result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                       shell=True, stdout=subprocess.PIPE)
         if lsof_resolv == 1:
             try:
@@ -486,10 +486,10 @@ def Update_Lsof():
                 internet = 0
 
             if internet == 1:
-                result = subprocess.Popen("lsof -i -P | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $9, $10}'",
+                result = subprocess.Popen("lsof -i -P | grep -v '\\*:\\*' | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                           shell=True, stdout=subprocess.PIPE)
             else:
-                result = subprocess.Popen("lsof -i -n -P | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $9, $10}'",
+                result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                           shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         txt = str(out[0])

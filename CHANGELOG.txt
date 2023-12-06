@@ -13,6 +13,7 @@
 # gtop-sprokkel78 1.1.10
 - moved network connections button one up in menu so it's below network.
 - added resolve hostnames to the network services view.
+- added UDP connections to the network services view.
 
 # gtop-sprokkel78 1.1.9
 - added current connected wifi-network to network view.
