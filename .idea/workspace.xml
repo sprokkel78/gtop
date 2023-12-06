@@ -197,7 +197,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701895141389</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="added UDP connections to the network services view.">
+      <option name="closed" value="true" />
+      <created>1701899185854</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1701899185854</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
