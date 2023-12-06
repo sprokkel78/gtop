@@ -429,8 +429,21 @@ def Update_Lsof():
 
         lsoflist = buffer
         lsoflist = lsoflist + traffic_buffer
+
+        # DO COUNT CONNECTIONS
+        result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | wc -l",
+                                  shell=True, stdout=subprocess.PIPE)
+        out = result.communicate()
+        service = str(out[0])
+        services_split = service.split('b\'')
+        services_line = services_split[1].split('\\n')
+        # print(services_line[0].strip())
+        services = 0
+        services = services_line[0].strip()
+
+        # SOCKETS IPV4
         if lsof_resolv == 0:
-            result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
+            result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                   shell=True, stdout=subprocess.PIPE)
         if lsof_resolv == 1:
             try:
@@ -443,10 +456,10 @@ def Update_Lsof():
                 internet = 0
 
             if internet == 1:
-                result = subprocess.Popen("lsof -i -P | grep -v '\\*:\\*' | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                result = subprocess.Popen("lsof -i -P | grep -v '\\*:\\*' | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                       shell=True, stdout=subprocess.PIPE)
             else:
-                result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                           shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         txt = str(out[0])
@@ -462,18 +475,47 @@ def Update_Lsof():
             if net != "'":
                 lsoflist = lsoflist + "\n    " + net
             y = y + 1
-        result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | wc -l",
-                                  shell=True, stdout=subprocess.PIPE)
-        out = result.communicate()
-        service = str(out[0])
-        services_split = service.split('b\'')
-        services_line = services_split[1].split('\\n')
-        # print(services_line[0].strip())
-        services = 0
-        services = services_line[0].strip()
 
         if lsof_resolv == 0:
-            result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
+            result = subprocess.Popen(
+                "lsof -i -n -P | grep -v '\\*:\\*' | grep UDP | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                shell=True, stdout=subprocess.PIPE)
+        if lsof_resolv == 1:
+            try:
+                host = socket.gethostbyname("www.nordvpn.com")
+                if host != "":
+                    internet = 1
+                else:
+                    internet = 0
+            except Exception:
+                internet = 0
+
+            if internet == 1:
+                result = subprocess.Popen(
+                    "lsof -i -P | grep -v '\\*:\\*' | grep UDP | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                    shell=True, stdout=subprocess.PIPE)
+            else:
+                result = subprocess.Popen(
+                    "lsof -i -n -P | grep -v '\\*:\\*' | grep UDP | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                    shell=True, stdout=subprocess.PIPE)
+        out = result.communicate()
+        txt = str(out[0])
+        # print(str(txt))
+        txts = txt.split('\\n')
+        y = 0
+        lsoflist = lsoflist + "\n"
+        while y < len(txts):
+            net = txts[y]
+            if y == 0:
+                txtss = net.split('b\'')
+                net = txtss[1]
+            if net != "'":
+                lsoflist = lsoflist + "\n    " + net
+            y = y + 1
+
+        # SOCKETS IPV6
+        if lsof_resolv == 0:
+            result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                       shell=True, stdout=subprocess.PIPE)
         if lsof_resolv == 1:
             try:
@@ -486,10 +528,10 @@ def Update_Lsof():
                 internet = 0
 
             if internet == 1:
-                result = subprocess.Popen("lsof -i -P | grep -v '\\*:\\*' | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                result = subprocess.Popen("lsof -i -P | grep -v '\\*:\\*' | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                           shell=True, stdout=subprocess.PIPE)
             else:
-                result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                           shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         txt = str(out[0])
@@ -497,6 +539,40 @@ def Update_Lsof():
         txts = txt.split('\\n')
         y = 0
         lsoflist = lsoflist + "\n\n\n    SOCKETS IPv6:\n"
+        while y < len(txts):
+            net = txts[y]
+            if y == 0:
+                txtss = net.split('b\'')
+                net = txtss[1]
+            if net != "'":
+                lsoflist = lsoflist + "\n    " + net
+            y = y + 1
+
+        if lsof_resolv == 0:
+            result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep UDP | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                                      shell=True, stdout=subprocess.PIPE)
+        if lsof_resolv == 1:
+            try:
+                host = socket.gethostbyname("www.nordvpn.com")
+                if host != "":
+                    internet = 1
+                else:
+                    internet = 0
+            except Exception:
+                internet = 0
+
+            if internet == 1:
+                result = subprocess.Popen("lsof -i -P | grep -v '\\*:\\*' | grep UDP | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                                          shell=True, stdout=subprocess.PIPE)
+            else:
+                result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep UDP | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                                          shell=True, stdout=subprocess.PIPE)
+        out = result.communicate()
+        txt = str(out[0])
+        # print(str(txt))
+        txts = txt.split('\\n')
+        y = 0
+        lsoflist = lsoflist + "\n"
         while y < len(txts):
             net = txts[y]
             if y == 0:
