@@ -5,6 +5,7 @@ import os
 import datetime
 import platform
 import psutil
+import socket
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GLib, Gdk
@@ -30,6 +31,7 @@ traffic_buffer = ""
 dns_ethernet = ""
 dns_wifi = ""
 curr_time = ""
+lsof_resolv = 0
 
 # GLOBAL WIDGETS
 container_system = Gtk.VBox()
@@ -52,7 +54,7 @@ entry1 = Gtk.Entry()
 entry2 = Gtk.Entry()
 label1 = Gtk.Label()
 button_pause = Gtk.Button()
-
+button_lsof_resolv = Gtk.CheckButton()
 
 # STARTUP CHECKS
 # CHECK IF WE'RE IN THE RIGHT DIRECTORY
@@ -423,10 +425,29 @@ def Update_Lsof():
         global nic_active
         global buffer
         global traffic_buffer
+        global lsof_resolv
+
         lsoflist = buffer
         lsoflist = lsoflist + traffic_buffer
-        result = subprocess.Popen("lsof -i -n -P | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $9, $10}'",
+        if lsof_resolv == 0:
+            result = subprocess.Popen("lsof -i -n -P | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $9, $10}'",
                                   shell=True, stdout=subprocess.PIPE)
+        if lsof_resolv == 1:
+            try:
+                host = socket.gethostbyname("www.nordvpn.com")
+                if host != "":
+                    internet = 1
+                else:
+                    internet = 0
+            except Exception:
+                internet = 0
+
+            if internet == 1:
+                result = subprocess.Popen("lsof -i -P | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $9, $10}'",
+                                      shell=True, stdout=subprocess.PIPE)
+            else:
+                result = subprocess.Popen("lsof -i -n -P | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $9, $10}'",
+                                          shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         txt = str(out[0])
         # print(str(txt))
@@ -451,8 +472,25 @@ def Update_Lsof():
         services = 0
         services = services_line[0].strip()
 
-        result = subprocess.Popen("lsof -i -n -P | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $9, $10}'",
-                                  shell=True, stdout=subprocess.PIPE)
+        if lsof_resolv == 0:
+            result = subprocess.Popen("lsof -i -n -P | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $9, $10}'",
+                                      shell=True, stdout=subprocess.PIPE)
+        if lsof_resolv == 1:
+            try:
+                host = socket.gethostbyname("www.nordvpn.com")
+                if host != "":
+                    internet = 1
+                else:
+                    internet = 0
+            except Exception:
+                internet = 0
+
+            if internet == 1:
+                result = subprocess.Popen("lsof -i -P | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $9, $10}'",
+                                          shell=True, stdout=subprocess.PIPE)
+            else:
+                result = subprocess.Popen("lsof -i -n -P | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $9, $10}'",
+                                          shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         txt = str(out[0])
         # print(str(txt))
@@ -878,6 +916,13 @@ def get_dns_servers():
         y = y + 1
 
 
+def button_lsof_resolv_clicked(obj):
+    global lsof_resolv
+    if button_lsof_resolv.get_active() == True:
+        lsof_resolv = 1
+    else:
+        lsof_resolv = 0
+
 # CREATE GTK APPLICATION
 class MyApplication(Gtk.Application):
     def __init__(self):
@@ -1213,6 +1258,23 @@ class MyApplication(Gtk.Application):
         box15.pack_start(scrolled_window_lsof, True, True, 0)
         scrolled_window_lsof.show()
         textview_lsof.show()
+        box_empyt_lsof = Gtk.Box(spacing=6)
+        box_empyt_lsof.show()
+        container_lsof.pack_start(box_empyt_lsof, False, False, 0)
+        label_empty_lsof = Gtk.Label()
+        label_empty_lsof.show()
+        box_empyt_lsof.pack_start(label_empty_lsof, False, False, 0)
+        box_lsof_resolv = Gtk.Box(spacing=6)
+        box_lsof_resolv.show()
+        container_lsof.pack_start(box_lsof_resolv, False, False, 0)
+        label_resolv = Gtk.Label()
+        label_resolv.show()
+        label_resolv.set_text("    Resolve Hostnames ")
+        box_lsof_resolv.pack_start(label_resolv, False, False, 0)
+        global button_lsof_resolv
+        button_lsof_resolv.show()
+        button_lsof_resolv.connect("clicked", button_lsof_resolv_clicked)
+        box_lsof_resolv.pack_start(button_lsof_resolv, False, False, 0)
 
         # NETWORK TAB
         box16 = Gtk.Box(spacing=6)
