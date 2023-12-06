@@ -431,7 +431,7 @@ def Update_Lsof():
         lsoflist = lsoflist + traffic_buffer
 
         # DO COUNT CONNECTIONS
-        result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | wc -l",
+        result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep -v 'mDNSR' |  wc -l",
                                   shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         service = str(out[0])
