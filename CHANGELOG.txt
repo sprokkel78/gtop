@@ -2,7 +2,7 @@
 
 # NOTES:
 
-- Resolving hostnames will in the network services view will only work with an active internet connection.
+- Resolving hostnames in the network services view will only work with an active internet connection.
   The first time you enable it there will be a gtk-warning which can be ignored.
 
 - ctrl-q will now quit the application
