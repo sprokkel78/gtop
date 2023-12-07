@@ -13,8 +13,8 @@ from threading import Thread
 from time import sleep
 
 
-# VERSION 1.1.10
-ver = "1.1.10"
+# VERSION 1.2.0
+ver = "1.2.0"
 
 
 # GLOBAL VARIABLES
@@ -538,7 +538,7 @@ def Update_Lsof():
         # print(str(txt))
         txts = txt.split('\\n')
         y = 0
-        lsoflist = lsoflist + "\n\n\n    SOCKETS IPv6:\n"
+        lsoflist = lsoflist + "\n\n    SOCKETS IPv6:\n"
         while y < len(txts):
             net = txts[y]
             if y == 0:

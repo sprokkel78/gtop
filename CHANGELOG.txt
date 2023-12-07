@@ -10,6 +10,9 @@
 
 # CHANGELOG
 
+# gtop-sprokkel78 1.2.0
+-
+
 # gtop-sprokkel78 1.1.10
 - moved network connections button one up in menu so it's below network.
 - added resolve hostnames to the network services view.
