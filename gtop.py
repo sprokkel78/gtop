@@ -252,7 +252,8 @@ def Update_Users():
             user = txts[y]
             if y == 0:
                 txtss = user.split('b\'')
-                user = txtss[1]
+                if len(txtss) > 1:
+                    user = txtss[1]
             if user != "'":
                 userlist = userlist + "\n    " + user
             y = y + 1
