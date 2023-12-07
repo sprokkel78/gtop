@@ -11,7 +11,7 @@
 # CHANGELOG
 
 # gtop-sprokkel78 1.2.0
--
+- added users shell info to the users view.
 
 # gtop-sprokkel78 1.1.10
 - moved network connections button one up in menu so it's below network.
