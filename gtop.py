@@ -449,7 +449,7 @@ def Update_Lsof():
         lsoflist = lsoflist + traffic_buffer
 
         # DO COUNT CONNECTIONS
-        result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep -v 'mDNSR' |  wc -l",
+        result = subprocess.Popen("lsof -i -n -P -w | grep -v '\\*:\\*' | grep -v 'mDNSR' |  wc -l",
                                   shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         service = str(out[0])
@@ -461,7 +461,7 @@ def Update_Lsof():
 
         # SOCKETS IPV4
         if lsof_resolv == 0:
-            result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
+            result = subprocess.Popen("lsof -i -n -P -w | grep -v '\\*:\\*' | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                   shell=True, stdout=subprocess.PIPE)
         if lsof_resolv == 1:
             try:
@@ -474,10 +474,10 @@ def Update_Lsof():
                 internet = 0
 
             if internet == 1:
-                result = subprocess.Popen("lsof -i -P | grep -v '\\*:\\*' | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                result = subprocess.Popen("lsof -i -P 0w | grep -v '\\*:\\*' | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                       shell=True, stdout=subprocess.PIPE)
             else:
-                result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                result = subprocess.Popen("lsof -i -n -P -w | grep -v '\\*:\\*' | grep TCP | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                           shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         txt = str(out[0])
@@ -496,7 +496,7 @@ def Update_Lsof():
 
         if lsof_resolv == 0:
             result = subprocess.Popen(
-                "lsof -i -n -P | grep -v '\\*:\\*' | grep UDP | grep -v 'mDNSR' | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                "lsof -i -n -P -w | grep -v '\\*:\\*' | grep UDP | grep -v 'mDNSR' | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
                 shell=True, stdout=subprocess.PIPE)
         if lsof_resolv == 1:
             try:
@@ -510,11 +510,11 @@ def Update_Lsof():
 
             if internet == 1:
                 result = subprocess.Popen(
-                    "lsof -i -P | grep -v '\\*:\\*' | grep UDP | grep -v 'mDNSR' | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                    "lsof -i -P -w | grep -v '\\*:\\*' | grep UDP | grep -v 'mDNSR' | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
                     shell=True, stdout=subprocess.PIPE)
             else:
                 result = subprocess.Popen(
-                    "lsof -i -n -P | grep -v '\\*:\\*' | grep UDP | grep -v 'mDNSR' | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                    "lsof -i -n -P -w | grep -v '\\*:\\*' | grep UDP | grep -v 'mDNSR' | grep IPv4 | awk '{print $1, $2, $3, $8, $9, $10}'",
                     shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         txt = str(out[0])
@@ -533,7 +533,7 @@ def Update_Lsof():
 
         # SOCKETS IPV6
         if lsof_resolv == 0:
-            result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
+            result = subprocess.Popen("lsof -i -n -P -w | grep -v '\\*:\\*' | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                       shell=True, stdout=subprocess.PIPE)
         if lsof_resolv == 1:
             try:
@@ -546,10 +546,10 @@ def Update_Lsof():
                 internet = 0
 
             if internet == 1:
-                result = subprocess.Popen("lsof -i -P | grep -v '\\*:\\*' | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                result = subprocess.Popen("lsof -i -P -w | grep -v '\\*:\\*' | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                           shell=True, stdout=subprocess.PIPE)
             else:
-                result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                result = subprocess.Popen("lsof -i -n -P -w | grep -v '\\*:\\*' | grep TCP | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                           shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         txt = str(out[0])
@@ -567,7 +567,7 @@ def Update_Lsof():
             y = y + 1
 
         if lsof_resolv == 0:
-            result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep UDP | grep -v 'mDNSR' | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
+            result = subprocess.Popen("lsof -i -n -P -w | grep -v '\\*:\\*' | grep UDP | grep -v 'mDNSR' | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                       shell=True, stdout=subprocess.PIPE)
         if lsof_resolv == 1:
             try:
@@ -580,10 +580,10 @@ def Update_Lsof():
                 internet = 0
 
             if internet == 1:
-                result = subprocess.Popen("lsof -i -P | grep -v '\\*:\\*' | grep UDP | grep -v 'mDNSR' | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                result = subprocess.Popen("lsof -i -P -w | grep -v '\\*:\\*' | grep UDP | grep -v 'mDNSR' | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                           shell=True, stdout=subprocess.PIPE)
             else:
-                result = subprocess.Popen("lsof -i -n -P | grep -v '\\*:\\*' | grep UDP | grep -v 'mDNSR' | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
+                result = subprocess.Popen("lsof -i -n -P -w | grep -v '\\*:\\*' | grep UDP | grep -v 'mDNSR' | grep IPv6 | awk '{print $1, $2, $3, $8, $9, $10}'",
                                           shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         txt = str(out[0])
