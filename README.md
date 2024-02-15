@@ -16,5 +16,7 @@ with homebrew. It's in /opt/homebrew/bin/python3
 
 Note: You must run gtop.py from it's own directory or it won't find the css file.
 
-Check https://github.com/sprokkel78/gtop for development and pre-releases.
+Check https://github.com/sprokkel78/gtop for contributing, development and pre-releases.
+
+Funding: Paypal sprokkel78.bart@gmail.com
 

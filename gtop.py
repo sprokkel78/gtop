@@ -13,8 +13,8 @@ from threading import Thread
 from time import sleep
 
 
-# VERSION 1.2.0
-ver = "1.2.0"
+# VERSION 1.2.1
+ver = "1.2.1"
 
 
 # GLOBAL VARIABLES
