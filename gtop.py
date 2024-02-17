@@ -8,9 +8,10 @@ import psutil
 import socket
 
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GLib, Gdk
+from gi.repository import Gtk, GLib, Gdk, Gio
 from threading import Thread
 from time import sleep
+from AppKit import NSApp
 
 
 # VERSION 1.2.1
@@ -1020,7 +1021,7 @@ def button_lsof_resolv_clicked(obj):
 # CREATE GTK APPLICATION
 class MyApplication(Gtk.Application):
     def __init__(self):
-        super().__init__(application_id="com.sprokkel78.gtop")
+        Gtk.Application.__init__(self, application_id="com.sprokkel78.gtop", flags=Gio.ApplicationFlags.FLAGS_NONE)
         GLib.set_application_name("gTop")
 
     def do_activate(self):
@@ -1445,6 +1446,7 @@ class MyApplication(Gtk.Application):
         win.present()
 
 
+
 # RUN THREADS
 thread_users = Thread(target=Update_Users)
 thread_users.daemon = True
@@ -1475,6 +1477,9 @@ thread_traffic.daemon = True
 thread_traffic.start()
 
 # START APPLICATION
-app = MyApplication()
-exit_status = app.run(sys.argv)
-sys.exit(exit_status)
+def main():
+    app = MyApplication()
+    app.run(None)
+
+if __name__ == "__main__":
+    main()
