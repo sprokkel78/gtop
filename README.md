@@ -18,5 +18,7 @@ Note: You must run gtop.py from it's own directory or it won't find the css file
 
 Check https://github.com/sprokkel78/gtop for contributing, development and pre-releases.
 
+Check https://pypi.org/project/gtop-sprokkel78/ for the full python package.
+
 Funding: Paypal email: sprokkel78.bart@gmail.com
 

@@ -241,8 +241,8 @@ def Update_Users():
                 userlist = userlist + "\n    " + user
             y = y + 1
 
-        result = subprocess.Popen("/usr/bin/w | /usr/bin/tail -n +3 | awk '{print $1, $2, $3, $6, $7, $8, $9, $10,\
-                                    $11, $12, $13, $14, $15}'", shell=True, stdout=subprocess.PIPE)
+        result = subprocess.Popen("/usr/bin/w | /usr/bin/tail -n +3 | awk '{print $1, $2, $3, $6, $7, $8,\
+                                    $9, $10, $11, $12, $13, $14, $15}'", shell=True, stdout=subprocess.PIPE)
         out = result.communicate()
         #print(out)
         txt = str(out[0])
