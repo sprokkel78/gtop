@@ -11,7 +11,6 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GLib, Gdk, Gio
 from threading import Thread
 from time import sleep
-from AppKit import NSApp
 
 
 # VERSION 1.2.1
